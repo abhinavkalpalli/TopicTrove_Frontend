@@ -1,0 +1,54 @@
+.signup-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 64px); /* Ensures the form is between header and footer */
+    margin-top: 64px; /* Adjust according to your header height */
+    margin-bottom: 64px; /* Adjust according to your footer height */
+  }
+  
+  .signup-image {
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .signup-form-container {
+    padding: 20px;
+  }
+  
+  .signup-box {
+    width: 100%;
+    padding: 20px;
+  }
+  
+  .signup-title {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .gender-radio-group {
+    margin-top: 20px;
+  }
+  
+  .gender-title {
+    font-weight: 600;
+  }
+  
+  .gender-options {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .gender-radio {
+    margin-right: 20px;
+  }
+  
+  .signup-button {
+    margin-top: 20px;
+    background-color: #1976d2;
+  }
+  
+  .signup-link {
+    text-align: right;
+  }
+  

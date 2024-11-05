@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -11,3 +15,39 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+/* Modal Backdrop */
+.modal-backdrop {
+  position: fixed; /* Position fixed to cover the entire screen */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  z-index: 999; /* Behind the modal */
+}
+
+/* Modal Container */
+.modal-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Center the modal */
+  width: 90%; /* Adjust as needed */
+  max-width: 600px; /* Set a max-width for the modal */
+  max-height: 90%; /* Set a max-height to avoid overflow */
+  overflow-y: auto; /* Allow vertical scrolling if content overflows */
+  background-color: white; /* Ensure the background is white */
+  border-radius: 8px; /* Optional: rounded corners */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Optional: shadow for depth */
+  z-index: 1000; /* Ensure it appears above other content */
+}
+
+
+/* Modal Header */
+
+/* Modal Content */
+.modal-content {
+  margin-bottom: 16px; /* Space below content */
+}
+
+
