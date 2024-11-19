@@ -33,7 +33,6 @@ export default function Signup() {
       if (response.status === 200) {
         setArticlePreferences(response.data.preferences);
         console.log(articlePreferences);
-        
       }
     } catch (error) {
       toast.error(

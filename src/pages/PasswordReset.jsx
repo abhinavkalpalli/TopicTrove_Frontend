@@ -31,8 +31,12 @@ const PasswordReset = () => {
       );
     } else {
       try {
-        let emailId=user?user.email:email
-        const response = await resetPassword({ email:emailId, oldPassword, password });
+        let emailId = user ? user.email : email;
+        const response = await resetPassword({
+          email: emailId,
+          oldPassword,
+          password,
+        });
         if (response.status === 200) {
           if (user) {
             toast.success("Password Changed Successfully");

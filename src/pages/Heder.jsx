@@ -4,10 +4,8 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useSelector, useDispatch } from "react-redux";
 import { removeUser } from "../utils/reducers/userReducer";
 import { useNavigate, Link } from "react-router-dom";
-import profilePlaceholder from "../assets/user.png"
+import profilePlaceholder from "../assets/user.png";
 import logo from "../assets/TopicTrove.png";
-
-
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -53,10 +51,10 @@ function Header() {
                     className="h-10 w-10 rounded-full"
                   />
                   <h1 className="ml-2 text-white text-lg sm:text-xl lg:text-2xl">
-                    <span>Topic</span> <span className="text-red-500">Trove</span>
+                    <span>Topic</span>{" "}
+                    <span className="text-red-500">Trove</span>
                   </h1>
                 </div>
-                
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 {/* Profile dropdown */}
@@ -65,7 +63,9 @@ function Header() {
                     <Menu.Button className="relative flex items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                       <span className="absolute -inset-1.5" />
                       <span className="sr-only">Open user menu</span>
-                      <h2 className="ml-2 text-white text-sm sm:text-base lg:text-lg">{user?.name}</h2>
+                      <h2 className="ml-2 text-white text-sm sm:text-base lg:text-lg">
+                        {user?.name}
+                      </h2>
                       <img
                         className="h-8 w-8 rounded-full ml-2"
                         src={user?.photo || profilePlaceholder}
@@ -116,7 +116,6 @@ function Header() {
               </div>
             </div>
           </div>
-
         </>
       )}
     </Disclosure>

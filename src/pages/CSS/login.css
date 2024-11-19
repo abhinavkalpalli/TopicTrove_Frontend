@@ -1,56 +1,54 @@
-
 .login-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 60vh;
-    margin-top: 80px;
-  }
-  
-  .login-image {
-    background-repeat: no-repeat;
-    background-size: cover; /* This will cover the entire container */
-    background-position: center;
-    flex: 1; /* Allow it to take full width */
-    min-height: 100%; /* Set a minimum height for better visibility */
-  }
-  
-  .login-form-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    background-color: #ffffff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .login-box {
-    width: 100%;
-    max-width: 400px;
-    text-align: center;
-  }
-  
-  .login-title {
-    margin-bottom: 24px;
-    text-align: center;
-  }
-  
-  .login-button {
-    margin-top: 24px;
-  }
-  
-  .login-google-button {
-    margin-top: 16px;
-  }
-  
-  .login-link-container {
-    margin-top: 16px;
-    display: flex;
-    justify-content: center;
-  }
-  
-  .login-link-container > * {
-    margin: 0 10px;
-  }
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+  margin-top: 80px;
+}
+
+.login-image {
+  background-repeat: no-repeat;
+  background-size: cover; /* This will cover the entire container */
+  background-position: center;
+  flex: 1; /* Allow it to take full width */
+  min-height: 100%; /* Set a minimum height for better visibility */
+}
+
+.login-form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.login-box {
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.login-title {
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.login-button {
+  margin-top: 24px;
+}
+
+.login-google-button {
+  margin-top: 16px;
+}
+
+.login-link-container {
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+}
+
+.login-link-container > * {
+  margin: 0 10px;
+}

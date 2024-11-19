@@ -1,5 +1,5 @@
-import React from 'react';
-import Sidebar from '../components/Profile/Sidebar';
+import React from "react";
+import Sidebar from "../components/Profile/Sidebar";
 
 const Userlayout = ({ children }) => {
   return (
@@ -10,7 +10,7 @@ const Userlayout = ({ children }) => {
           <div className="lg:col-span-3 lg:sticky lg:top-8 self-start">
             <Sidebar />
           </div>
-          
+
           {/* Main Content */}
           <div className="lg:col-span-9 bg-white p-4 rounded-lg shadow-md">
             {children}

@@ -45,9 +45,11 @@ const TopicManage = () => {
 
   const handleSubmit = (updatedTopic) => {
     if (isEditing) {
-      setPreferences(preferences.map((pref) =>
-        pref._id === updatedTopic._id ? updatedTopic : pref
-      ));
+      setPreferences(
+        preferences.map((pref) =>
+          pref._id === updatedTopic._id ? updatedTopic : pref
+        )
+      );
     } else {
       setPreferences([...preferences, updatedTopic]);
     }
@@ -60,7 +62,10 @@ const TopicManage = () => {
       <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-6">
         <ul className="mb-4">
           {preferences.map((preference) => (
-            <li key={preference._id} className="flex justify-between items-center p-2 border-b">
+            <li
+              key={preference._id}
+              className="flex justify-between items-center p-2 border-b"
+            >
               <span className="text-lg">{preference.name}</span>
               <button
                 onClick={() => handleEdit(preference)}

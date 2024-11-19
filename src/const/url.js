@@ -1,1 +1,1 @@
-export const BASE_URL='https://topictrove.website'
+export const BASE_URL = "https://topictrove.website";

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import profileHolder from '../../assets/TopicTrove.png'
+import profileHolder from "../../assets/TopicTrove.png";
 
 export default function Footer() {
   return (

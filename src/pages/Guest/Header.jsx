@@ -1,5 +1,5 @@
 import { Disclosure } from "@headlessui/react";
-import profileHolder from "../../assets/TopicTrove.png"
+import profileHolder from "../../assets/TopicTrove.png";
 import { Link } from "react-router-dom";
 
 function Header() {

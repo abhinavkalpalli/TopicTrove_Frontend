@@ -3,27 +3,32 @@ import { createTopic, editTopic } from "../services/apiMethods";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 
-const CreateTopic = ({ setClose, topic: initialTopic, onSubmit, isEditing }) => {
+const CreateTopic = ({
+  setClose,
+  topic: initialTopic,
+  onSubmit,
+  isEditing,
+}) => {
   const user = useSelector((state) => state.user.userData);
   const [topic, setTopic] = useState("");
-  const [topicId, setTopicId] = useState(null); 
+  const [topicId, setTopicId] = useState(null);
 
   useEffect(() => {
-    setTopic(initialTopic?.name || ""); 
-    setTopicId(initialTopic?._id || null); 
+    setTopic(initialTopic?.name || "");
+    setTopicId(initialTopic?._id || null);
   }, [initialTopic]);
 
   const handleSubmit = async () => {
     if (topic.trim()) {
       try {
-        const payload = { 
-          name: topic.trim().toUpperCase(), 
-          userId: user._id, 
-          _id: topicId 
+        const payload = {
+          name: topic.trim().toUpperCase(),
+          userId: user._id,
+          _id: topicId,
         };
 
-        const response = isEditing 
-          ? await editTopic(payload) 
+        const response = isEditing
+          ? await editTopic(payload)
           : await createTopic(payload);
 
         if (response.status === 200) {

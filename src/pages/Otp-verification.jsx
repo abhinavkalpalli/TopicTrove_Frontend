@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import OtpInput from './OtpInput';
+import OtpInput from "./OtpInput";
 import { useLocation, useNavigate } from "react-router-dom";
 import { otpVerify, resendOtp } from "../services/apiMethods";
 import "./CSS/Otpverification.css";

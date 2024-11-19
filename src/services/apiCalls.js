@@ -5,7 +5,6 @@ import { BASE_URL } from "../const/url";
 import axios from "axios";
 import Swal from "sweetalert2";
 
-
 export const clearUser = async () => {
   localStorage.removeItem(userAuth);
   persistor.purge();

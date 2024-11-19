@@ -9,7 +9,7 @@ import {
   deletePost,
 } from "../services/apiMethods";
 import PostModal from "./PostModal";
-import { useSelector ,useDispatch} from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import toast from "react-hot-toast";
 import { formatDistanceToNow } from "date-fns";
 import Swal from "sweetalert2";
@@ -17,21 +17,21 @@ import CreatePost from "./CreatePost";
 import { useLocation } from "react-router-dom";
 import { updateReduxUser } from "../utils/reducers/userReducer";
 
-
 const PostCard = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.userData);
-  const posts=user.posts
+  const posts = user.posts;
   const [openModal, setOpenModal] = useState(false);
   const [openModalEdit, setOpenModalEdit] = useState(false);
   const [currentPost, setCurrentPost] = useState(null);
   const userId = user?._id;
   const [loading, setLoading] = useState(true);
   const [allPreferences, setAllPreferences] = useState([]);
-  const [selectedPreferences, setSelectedPreferences] = useState(user.preferences);
-  const isUser =
-    new URLSearchParams(location.search).get("isUser") === "true";
+  const [selectedPreferences, setSelectedPreferences] = useState(
+    user.preferences
+  );
+  const isUser = new URLSearchParams(location.search).get("isUser") === "true";
 
   useEffect(() => {
     const fetchAllPreferences = async () => {
@@ -58,37 +58,44 @@ const PostCard = () => {
         userId,
         preferences: selectedPreferences,
       });
-  
+
       const postsData = response?.data?.posts || [];
       let filteredPosts = [];
-  
+
       if (isUser) {
         filteredPosts = postsData.filter((post) => post.userId._id === userId);
       } else {
-        filteredPosts = postsData.filter((post) => !post.block?.includes(userId));
+        filteredPosts = postsData.filter(
+          (post) => !post.block?.includes(userId)
+        );
       }
-      dispatch(updateReduxUser({ userData: { ...user,preferences:selectedPreferences} }));
-      dispatch(updateReduxUser({userData:{...user,posts:filteredPosts}}))
+      dispatch(
+        updateReduxUser({
+          userData: { ...user, preferences: selectedPreferences },
+        })
+      );
+      dispatch(
+        updateReduxUser({ userData: { ...user, posts: filteredPosts } })
+      );
     } catch (error) {
       toast.error(error?.message || "An error occurred while fetching posts");
     } finally {
-      setLoading(false); 
+      setLoading(false);
     }
   };
-  
 
   useEffect(() => {
     loadPosts();
-  }, [selectedPreferences, userId,isUser]);
-
+  }, [selectedPreferences, userId, isUser]);
 
   // Handle like and dislike
   const handleLike = useCallback(
     async (postId, currentLike, currentDislike) => {
       try {
-        if (currentDislike) await dislikePost({ postId, userId, dislike: true });
+        if (currentDislike)
+          await dislikePost({ postId, userId, dislike: true });
         await likePost({ postId, userId, like: !currentLike });
-  
+
         dispatch(
           updateReduxUser({
             userData: {
@@ -115,13 +122,13 @@ const PostCard = () => {
     },
     [user, userId, dispatch]
   );
-  
+
   const handleDislike = useCallback(
     async (postId, currentDislike, currentLike) => {
       try {
         if (currentLike) await likePost({ postId, userId, like: true });
         await dislikePost({ postId, userId, dislike: !currentDislike });
-  
+
         dispatch(
           updateReduxUser({
             userData: {
@@ -150,7 +157,7 @@ const PostCard = () => {
     },
     [user, userId, dispatch]
   );
-  
+
   const handleEdit = (post) => {
     setCurrentPost(post);
     setOpenModalEdit(true);
@@ -218,7 +225,7 @@ const PostCard = () => {
               },
             })
           );
-          toast.success('Deleted the post')
+          toast.success("Deleted the post");
         }
       } catch (error) {
         toast.error(
@@ -239,9 +246,10 @@ const PostCard = () => {
     );
   };
   const updatePostLocally = (updatedPost) => {
-
-    const updatedPosts=posts.map(post=>post._id===updatedPost._id?{...post,...updatedPost}:post)
-    dispatch(updateReduxUser({userData:{...user,posts:updatedPosts}}))
+    const updatedPosts = posts.map((post) =>
+      post._id === updatedPost._id ? { ...post, ...updatedPost } : post
+    );
+    dispatch(updateReduxUser({ userData: { ...user, posts: updatedPosts } }));
   };
   return (
     <div className="flex flex-col items-center gap-6">
@@ -269,122 +277,125 @@ const PostCard = () => {
       {loading ? (
         <div>Loading posts...</div>
       ) : posts.length > 0 ? (
-        posts.map((post) => (!post.block.includes(userId)&&
-          <div
-            key={post._id}
-            className="bg-white rounded-lg shadow-lg p-4 w-80 relative"
-          >
-            <div className="flex justify-between items-center mb-3">
-              <div className="flex items-center gap-2">
-                <img
-                  src={post.userId.photo}
-                  alt={post.userId.firstName}
-                  className="w-8 h-8 rounded-full object-cover"
-                />
-                <div className="text-sm font-semibold">
-                  {post.userId.firstName}
-                </div>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="text-xs text-gray-500">
-                  {formatDistanceToNow(new Date(post.createdAt), {
-                    addSuffix: true,
-                  })}
-                </div>
-
-                {post.userId._id === userId ? (
-                  <>
-                    <button
-                      className="text-blue-500"
-                      onClick={() => handleEdit(post)}
-                      aria-label="Edit Post"
-                    >
-                      ✏️
-                    </button>
-                    <button
-                      className="text-red-500"
-                      onClick={() => handleDelete(post._id)}
-                      aria-label="Delete Post"
-                    >
-                      🗑️
-                    </button>
-                  </>
-                ) : (
-                  <button
-                    className="text-red-500"
-                    onClick={() => handleBlock(post._id)}
-                    aria-label="Block User"
-                  >
-                    🚫
-                  </button>
-                )}
-              </div>
-            </div>
-
-            <img
-              src={post.photo}
-              alt={post.name}
-              className="w-full h-48 object-cover rounded-lg mb-4"
-            />
-
-            <h1 className="text-center text-xl font-semibold mb-2">
-              {post.name}
-            </h1>
-
-            <p className="text-gray-700 mb-4">
-              {post.description.slice(0, 100)}...
-            </p>
-
-            <div className="flex justify-between items-center">
-              <div className="flex gap-2">
-                <button
-                  onClick={() =>
-                    handleLike(
-                      post._id,
-                      post.like.includes(userId),
-                      post.dislike.includes(userId)
-                    )
-                  }
-                  aria-label="Like Post"
-                >
-                  <FaThumbsUp
-                    className={`text-xl ${
-                      post.like.includes(userId)
-                        ? "text-blue-500"
-                        : "text-gray-500"
-                    }`}
-                  />
-                  <span>{post.like.length}</span>
-                </button>
-                <button
-                  onClick={() =>
-                    handleDislike(
-                      post._id,
-                      post.dislike.includes(userId),
-                      post.like.includes(userId)
-                    )
-                  }
-                  aria-label="Dislike Post"
-                >
-                  <FaThumbsDown
-                    className={`text-xl ${
-                      post.dislike.includes(userId)
-                        ? "text-red-500"
-                        : "text-gray-500"
-                    }`}
-                  />
-                  <span>{post.dislike.length}</span>
-                </button>
-              </div>
-              <button
-                onClick={() => openFullPost(post)}
-                className="text-blue-500"
+        posts.map(
+          (post) =>
+            !post.block.includes(userId) && (
+              <div
+                key={post._id}
+                className="bg-white rounded-lg shadow-lg p-4 w-80 relative"
               >
-                Read More
-              </button>
-            </div>
-          </div>
-        ))
+                <div className="flex justify-between items-center mb-3">
+                  <div className="flex items-center gap-2">
+                    <img
+                      src={post.userId.photo}
+                      alt={post.userId.firstName}
+                      className="w-8 h-8 rounded-full object-cover"
+                    />
+                    <div className="text-sm font-semibold">
+                      {post.userId.firstName}
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="text-xs text-gray-500">
+                      {formatDistanceToNow(new Date(post.createdAt), {
+                        addSuffix: true,
+                      })}
+                    </div>
+
+                    {post.userId._id === userId ? (
+                      <>
+                        <button
+                          className="text-blue-500"
+                          onClick={() => handleEdit(post)}
+                          aria-label="Edit Post"
+                        >
+                          ✏️
+                        </button>
+                        <button
+                          className="text-red-500"
+                          onClick={() => handleDelete(post._id)}
+                          aria-label="Delete Post"
+                        >
+                          🗑️
+                        </button>
+                      </>
+                    ) : (
+                      <button
+                        className="text-red-500"
+                        onClick={() => handleBlock(post._id)}
+                        aria-label="Block User"
+                      >
+                        🚫
+                      </button>
+                    )}
+                  </div>
+                </div>
+
+                <img
+                  src={post.photo}
+                  alt={post.name}
+                  className="w-full h-48 object-cover rounded-lg mb-4"
+                />
+
+                <h1 className="text-center text-xl font-semibold mb-2">
+                  {post.name}
+                </h1>
+
+                <p className="text-gray-700 mb-4">
+                  {post.description.slice(0, 100)}...
+                </p>
+
+                <div className="flex justify-between items-center">
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() =>
+                        handleLike(
+                          post._id,
+                          post.like.includes(userId),
+                          post.dislike.includes(userId)
+                        )
+                      }
+                      aria-label="Like Post"
+                    >
+                      <FaThumbsUp
+                        className={`text-xl ${
+                          post.like.includes(userId)
+                            ? "text-blue-500"
+                            : "text-gray-500"
+                        }`}
+                      />
+                      <span>{post.like.length}</span>
+                    </button>
+                    <button
+                      onClick={() =>
+                        handleDislike(
+                          post._id,
+                          post.dislike.includes(userId),
+                          post.like.includes(userId)
+                        )
+                      }
+                      aria-label="Dislike Post"
+                    >
+                      <FaThumbsDown
+                        className={`text-xl ${
+                          post.dislike.includes(userId)
+                            ? "text-red-500"
+                            : "text-gray-500"
+                        }`}
+                      />
+                      <span>{post.dislike.length}</span>
+                    </button>
+                  </div>
+                  <button
+                    onClick={() => openFullPost(post)}
+                    className="text-blue-500"
+                  >
+                    Read More
+                  </button>
+                </div>
+              </div>
+            )
+        )
       ) : (
         <div>No posts available based on your preferences.</div>
       )}
@@ -394,21 +405,20 @@ const PostCard = () => {
         <PostModal post={currentPost} onClose={() => setOpenModal(false)} />
       )}
       {openModalEdit && (
-  <>
-    <div
-      className="modal-backdrop"
-      onClick={() => setOpenModalEdit(false)}
-    />
-    <div className="modal-container">
-      <CreatePost
-        setClose={() => setOpenModalEdit(false)}
-        editPostData={currentPost}
-        onUpdatePost={updatePostLocally}
-      />
-    </div>
-  </>
-)}
-
+        <>
+          <div
+            className="modal-backdrop"
+            onClick={() => setOpenModalEdit(false)}
+          />
+          <div className="modal-container">
+            <CreatePost
+              setClose={() => setOpenModalEdit(false)}
+              editPostData={currentPost}
+              onUpdatePost={updatePostLocally}
+            />
+          </div>
+        </>
+      )}
     </div>
   );
 };

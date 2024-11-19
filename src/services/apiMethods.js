@@ -92,19 +92,21 @@ export const resetPassword = (userData) => {
     }
   });
 };
-export const editProfile=(userData)=>{
-  return new Promise((resolve,reject)=>{
-      try{
-          apiCall("put",userUrl.editProfile,userData).then((response)=>{
-              resolve(response)
-          }).catch((err)=>{
-              reject(err)
-          })
-      }catch(error){
-          resolve({status:500,message:'Something went wrong'})
-      }
-  })
-}
+export const editProfile = (userData) => {
+  return new Promise((resolve, reject) => {
+    try {
+      apiCall("put", userUrl.editProfile, userData)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    } catch (error) {
+      resolve({ status: 500, message: "Something went wrong" });
+    }
+  });
+};
 export const createTopic = (userData) => {
   return new Promise((resolve, reject) => {
     try {
@@ -135,19 +137,21 @@ export const getPreferences = (userId) => {
     }
   });
 };
-export const editTopic=(userData)=>{
-  return new Promise((resolve,reject)=>{
-      try{
-          apiCall("patch",userUrl.editTopic,userData).then((response)=>{
-              resolve(response)
-          }).catch((err)=>{
-              reject(err)
-          })
-      }catch(error){
-          resolve({status:500,message:'Something went wrong'})
-      }
-  })
-}
+export const editTopic = (userData) => {
+  return new Promise((resolve, reject) => {
+    try {
+      apiCall("patch", userUrl.editTopic, userData)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    } catch (error) {
+      resolve({ status: 500, message: "Something went wrong" });
+    }
+  });
+};
 export const getAllPreferences = () => {
   return new Promise((resolve, reject) => {
     try {
@@ -181,7 +185,9 @@ export const createPost = (userData) => {
 export const fetchPosts = (data) => {
   return new Promise((resolve, reject) => {
     try {
-      apiCall("get", userUrl.fetchPosts,{ params: { userId: data.userId, preferences: data.preferences } })
+      apiCall("get", userUrl.fetchPosts, {
+        params: { userId: data.userId, preferences: data.preferences },
+      })
         .then((response) => {
           resolve(response);
         })
@@ -196,7 +202,7 @@ export const fetchPosts = (data) => {
 export const likePost = (data) => {
   return new Promise((resolve, reject) => {
     try {
-      apiCall("patch", userUrl.likePost,data)
+      apiCall("patch", userUrl.likePost, data)
         .then((response) => {
           resolve(response);
         })
@@ -211,7 +217,7 @@ export const likePost = (data) => {
 export const dislikePost = (data) => {
   return new Promise((resolve, reject) => {
     try {
-      apiCall("patch", userUrl.dislikePost,data)
+      apiCall("patch", userUrl.dislikePost, data)
         .then((response) => {
           resolve(response);
         })
@@ -226,7 +232,7 @@ export const dislikePost = (data) => {
 export const blockPost = (data) => {
   return new Promise((resolve, reject) => {
     try {
-      apiCall("patch", userUrl.blockPost,data)
+      apiCall("patch", userUrl.blockPost, data)
         .then((response) => {
           resolve(response);
         })
@@ -268,4 +274,3 @@ export const editPost = (userData) => {
     }
   });
 };
-
